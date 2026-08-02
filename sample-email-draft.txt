@@ -1,0 +1,25 @@
+To: gandharvbhoite@gmail.com
+Subject: Groww — Weekly Review Pulse (May 12 – Aug 2, 2026)
+
+Hi,
+
+Here's this week's user review pulse for Groww, based on 63 App Store + Play Store reviews from the last ~12 weeks.
+
+TOP 3 THEMES
+1. KYC (19 reviews, avg 1.9★) — repeated rejections/re-verification loops with no stated reason.
+2. Payments (15 reviews, avg 2.1★) — UPI/gateway timeouts, duplicate SIP debits, autopay mandate failures.
+3. Withdrawals (12 reviews, avg 2.3★) — redemptions stuck "processing" past SLA.
+
+REAL USER QUOTES
+- "Uploaded a clear photo of my PAN card, still got rejected for 'unclear document'. No idea what's wrong with it." (Play Store, 1★)
+- "My SIP autodebit charged more than the set amount this month, no explanation from support yet." (App Store, 1★)
+- "Requested withdrawal 5 days ago, still shows processing. Support ticket got auto-closed without resolution." (Play Store, 1★)
+
+ACTION IDEAS
+1. Add a KYC failure-reason screen (surface the actual rejection cause).
+2. Idempotency check on SIP/UPI debits + proactive duplicate-charge refund status.
+3. Withdrawal SLA tracker with live status + expected credit date.
+
+Full one-pager attached / linked: weekly_pulse.md
+
+— Weekly Pulse Bot

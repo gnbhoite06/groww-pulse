@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #0b1f27;
+  --sub: #5b7278;
+  --bg: #f4faf8;
+  --bg-raised: #ffffff;
+  --card: #ffffff;
+  --card-line: #dbeee6;
+  --brand: #00b386;
+  --brand-soft: #e0f8ef;
+  --brand-strong: #00d09c;
+  --amber: #b4590f;
+  --amber-soft: #fdecdc;
+  --danger: #c0392b;
+  --danger-soft: #fbe4e0;
+}
+
+.dark {
+  --ink: #eaf7f1;
+  --sub: #8fada4;
+  --bg: #071613;
+  --bg-raised: #0a1c1e;
+  --card: #0e2420;
+  --card-line: #1c3a33;
+  --brand: #00d09c;
+  --brand-soft: #123a30;
+  --brand-strong: #4ee3b8;
+  --amber: #e6a668;
+  --amber-soft: #3a2a1c;
+  --danger: #e57367;
+  --danger-soft: #3a1f1a;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-sub: var(--sub);
+  --color-bg: var(--bg);
+  --color-bg-raised: var(--bg-raised);
+  --color-card: var(--card);
+  --color-card-line: var(--card-line);
+  --color-brand: var(--brand);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-strong: var(--brand-strong);
+  --color-amber: var(--amber);
+  --color-amber-soft: var(--amber-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --font-sans: var(--font-fira-sans);
+  --font-mono: var(--font-fira-code);
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-fira-sans), -apple-system, sans-serif;
+}
+
+::selection {
+  background: var(--brand-soft);
+  color: var(--brand);
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}

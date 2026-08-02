@@ -1,0 +1,64 @@
+source,rating,title,text,date
+App Store,3,Decent but slow support,"Chat support takes forever to respond, waited almost a day for a reply about a failed transaction.",2026-05-12
+Play Store,1,KYC document rejected,"Uploaded a clear photo of my PAN card, still got rejected for 'unclear document'. No idea what's wrong with it.",2026-05-13
+App Store,5,Clean charts,"Really like the mutual fund comparison charts, makes it easy to pick between similar funds.",2026-05-15
+Play Store,2,Withdrawal taking too long,"Redemption initiated 6 days ago, bank account still not credited. Support just repeats the same SLA message.",2026-05-17
+App Store,1,SIP charged wrong amount,"My SIP autodebit charged more than the set amount this month, no explanation from support yet.",2026-05-19
+Play Store,4,Good fund discovery,"Fund screener and filters are genuinely useful for comparing expense ratios and past returns.",2026-05-21
+App Store,2,Onboarding stuck at selfie step,"Live selfie verification during signup failed repeatedly in low light, had to retry five times.",2026-05-23
+Play Store,3,Statement export slow,"Downloading the annual capital gains statement took multiple retries before the PDF finally generated.",2026-05-25
+App Store,1,UPI mandate failed silently,"Autopay mandate failed with no notification, found out only when my SIP was marked missed a week later.",2026-05-27
+Play Store,5,Great UI overall,"Very intuitive app, dashboard gives a clear snapshot of my portfolio at a glance.",2026-05-29
+App Store,2,KYC pending for days,"Filed KYC over a week ago, status still shows pending with no update or ETA given anywhere in the app.",2026-05-31
+Play Store,1,"Payment failed, money held","Bank confirmed the UPI debit went through but Groww still shows the payment as failed. Funds in limbo for 3 days.",2026-06-01
+Play Store,2,KYC stuck for a week,"My KYC has been 'under review' for 7 days now. No update, no email. Can't invest until this clears.",2026-06-02
+App Store,1,Re-KYC nightmare,"Asked to redo KYC even though I completed it last year on another app. Aadhaar OTP failed three times before it worked.",2026-06-05
+Play Store,4,Good app but onboarding is slow,"Signup itself is easy but the KYC + bank linking took almost 3 days end to end. Once done, app is smooth.",2026-06-10
+App Store,5,Great for SIPs,"Been using Groww for a year now, SIPs run like clockwork every month. Love the clean UI.",2026-06-14
+Play Store,1,Withdrawal delay,"Requested withdrawal 5 days ago, still shows processing. Support ticket got auto-closed without resolution.",2026-06-18
+App Store,2,Payment failed but money deducted,"UPI payment failed on the app but amount was debited from my bank. Had to wait 2 days for auto-refund.",2026-06-20
+Play Store,3,Statement download broken,"Capital gains statement PDF fails to generate for FY, keeps showing 'try again later' for over a week.",2026-06-24
+App Store,1,Onboarding asked for documents twice,"Uploaded PAN and address proof, got rejected with no reason, had to resubmit the exact same documents again.",2026-06-27
+Play Store,5,Smooth withdrawals now,"After a rough month, withdrawals are now credited within 24 hours. Much better experience recently.",2026-07-01
+App Store,2,KYC verification confusing,"The KYC flow doesn't clearly say what went wrong. Just says 'verification pending' with no next steps.",2026-07-03
+Play Store,1,Payment gateway timeout,"Tried to add funds via UPI three times, gateway kept timing out. Ended up using a different app.",2026-07-06
+App Store,4,Statements are useful,"Tax statements are well organized now, exported my capital gains report for filing without much trouble.",2026-07-09
+Play Store,2,Withdrawal stuck in processing,"My redemption request has been 'processing' for 4 days. Called support, they just said 'wait 24-48 hrs' again.",2026-07-12
+App Store,3,Onboarding could be faster,"Account opening took 2 days for KYC approval. Not bad but competitors do it in hours.",2026-07-14
+Play Store,1,Payment debited twice,"Got charged twice for the same SIP installment this month. Refund for the duplicate charge still pending.",2026-07-17
+App Store,5,Best investing app,"Simple interface, good fund recommendations, and customer support resolved my query within a day.",2026-07-19
+Play Store,2,Statement mismatch,"The holdings statement doesn't match what's shown on the dashboard. Numbers are off by a small amount, confusing.",2026-07-21
+App Store,1,KYC rejected without reason,"Third time my KYC got rejected. No explanation given, just told to 'try again'. Very frustrating process.",2026-07-23
+Play Store,4,Withdrawal improved,"Redemption to bank account happened faster this time, credited in about a day and a half.",2026-07-25
+App Store,2,UPI autopay failing,"SIP autopay via UPI mandate has failed twice this month even though there were sufficient funds.",2026-07-27
+Play Store,3,Onboarding document upload issue,"App kept crashing while uploading PAN card photo during signup. Had to restart the process from scratch.",2026-07-28
+App Store,1,Withdrawal delayed again,"Second month in a row my withdrawal has taken more than 5 business days to reflect in my bank account.",2026-07-29
+Play Store,5,Statements finally easy,"Downloaded my full year capital gains statement in seconds, big improvement from a few months ago.",2026-07-30
+App Store,2,Payment stuck in pending,"Added funds via net banking, transaction shows pending for over 24 hours with no confirmation either way.",2026-07-31
+Play Store,1,KYC loop,"Stuck in a loop where the app asks me to complete KYC, I complete it, and it asks again the next day.",2026-08-01
+App Store,4,Overall solid experience,"Minor hiccups with statement generation but onboarding and day-to-day investing experience has been good.",2026-08-02
+Play Store,1,Re-KYC every few months,"Why do I need to redo KYC every 3-4 months? Already verified, feels like the same loop each time.",2026-06-03
+App Store,3,"Onboarding fine, just slow","Nothing broken, but bank account linking step took an extra day to confirm compared to other apps.",2026-06-07
+Play Store,2,Withdrawal ETA missing,"No clear ETA shown for redemption anywhere in the app, just a generic 'processing' label that doesn't update.",2026-06-09
+App Store,1,Statement totals wrong,"Capital gains total in the PDF doesn't match the in-app summary. Had to manually recalculate for tax filing.",2026-06-11
+Play Store,4,Payments mostly smooth,"UPI payments work fine most of the time, only had one failed transaction in the last two months.",2026-06-13
+App Store,2,KYC support unhelpful,"Support just told me to 'wait for the team to review' with zero visibility into what's actually pending.",2026-06-15
+Play Store,1,Withdrawal support unresponsive,"Raised two tickets about a delayed withdrawal, both closed with a canned response and no real resolution.",2026-06-16
+App Store,5,Reliable for SIPs,"Six months in, SIPs have never failed once. Very consistent experience for long-term investing.",2026-06-17
+Play Store,3,Statements ok now,"PDF generation is faster than before, though the layout could still be clearer for tax purposes.",2026-06-19
+App Store,2,Onboarding rejected twice,"Address proof got rejected twice for being 'not clear' despite being a scanned government document.",2026-06-21
+Play Store,1,Duplicate SIP debit,"Charged twice for the same monthly SIP again this cycle. This is the second time this has happened.",2026-06-22
+App Store,4,Withdrawal within a day,"Redemption credited within about 20 hours this time, noticeably better than a few months back.",2026-06-23
+Play Store,2,"KYC rejected, no reason","Verification failed with just a generic error code, no explanation of what document or field was wrong.",2026-06-25
+App Store,1,Payment gateway error,"Tried adding funds via card, got a generic gateway error with no details. Had to switch to UPI instead.",2026-06-26
+Play Store,5,Good statement clarity,"Yearly summary statement is clean and easy to read now, filed my taxes with it directly.",2026-06-28
+App Store,3,Withdrawal slower than expected,"Took about 3 days for the redemption to reflect, app said 'usually 24-48 hours' so a bit off from stated SLA.",2026-06-29
+Play Store,1,KYC verification loop again,"Same KYC loop issue as other users mention here, verified once, asked again a week later for no clear reason.",2026-06-30
+App Store,2,Autopay mandate confusion,"UPI autopay mandate setup screen doesn't clearly explain what happens if the bank rejects the mandate.",2026-07-02
+Play Store,4,Onboarding smoother now,"Signup and KYC together took under a day this time, an improvement from my last attempt a few months ago.",2026-07-04
+App Store,1,Withdrawal delayed with no update,"Redemption has been pending 4 days, no push notification or email update on status at all.",2026-07-05
+Play Store,2,Payment refund slow,"Refund for a failed UPI payment took 4 business days to land back in my account.",2026-07-07
+App Store,5,Great fund research tools,"The research reports and fund comparison tools genuinely help with decision making before investing.",2026-07-08
+Play Store,1,KYC document loop,"Uploaded the same PAN card three times, rejected each time with the exact same vague error message.",2026-07-10
+App Store,3,Statement PDF slow to load,"Takes a while to generate the capital gains PDF, sometimes times out and needs a retry.",2026-07-11
+Play Store,2,Withdrawal support canned replies,"Support chat gives the same templated 'please wait 24-48 hours' message regardless of how long it's already been.",2026-07-13
