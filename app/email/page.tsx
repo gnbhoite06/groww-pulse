@@ -1,10 +1,10 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { useReviewsStore } from "@/lib/useReviewsStore";
+import type { WeeklyPulse } from "@/lib/types";
 
-function buildEmailBody(pulse: NonNullable<ReturnType<typeof useReviewsStore>["pulse"]>): string {
+function buildEmailBody(pulse: WeeklyPulse): string {
   const lines: string[] = [];
   lines.push(`Here's this week's user review pulse for Groww, based on ${pulse.totalReviews} App Store + Play Store reviews from the ${pulse.windowLabel}.`, "");
   lines.push("TOP THEMES");
@@ -21,9 +21,15 @@ function buildEmailBody(pulse: NonNullable<ReturnType<typeof useReviewsStore>["p
 }
 
 export default function EmailPage() {
-  const { pulse } = useReviewsStore();
+  const [pulse, setPulse] = useState<WeeklyPulse | null>(null);
   const [to, setTo] = useState("");
   const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/pulse")
+      .then((res) => res.json())
+      .then((data) => setPulse(data.pulse ?? null));
+  }, []);
 
   const body = useMemo(() => (pulse ? buildEmailBody(pulse) : ""), [pulse]);
   const subject = "Groww — Weekly Review Pulse";

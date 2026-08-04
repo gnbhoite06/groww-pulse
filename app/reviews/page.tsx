@@ -1,18 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useReviewsStore } from "@/lib/useReviewsStore";
 import { parseReviewsCsv } from "@/lib/parseCsv";
+import type { Review } from "@/lib/types";
 import { StatusCard } from "../status-card";
 
 export default function ReviewsPage() {
-  const { reviews, meta, setReviews, hydrated } = useReviewsStore();
+  const { meta, setMeta, hydrated } = useReviewsStore();
+  const [reviews, setReviewsState] = useState<Review[]>([]);
   const [appStoreId, setAppStoreId] = useState("1404871702");
   const [playPackage, setPlayPackage] = useState("com.nextbillion.groww");
   const [weeks, setWeeks] = useState(10);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [fetchWarnings, setFetchWarnings] = useState<string[]>([]);
+
+  useEffect(() => {
+    fetch("/api/reviews")
+      .then((res) => res.json())
+      .then((data) => setReviewsState(data.reviews ?? []));
+  }, []);
 
   async function handleFetch() {
     setLoading(true);
@@ -26,13 +34,15 @@ export default function ReviewsPage() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "Fetch failed");
-      setReviews(data.reviews, {
+      setMeta({
         method: "rss+play-scraper",
         appStoreCount: data.counts.appStore,
         playStoreCount: data.counts.playStore,
         warnings: data.warnings ?? [],
       });
       setFetchWarnings(data.warnings ?? []);
+      const refreshed = await fetch("/api/reviews").then((r) => r.json());
+      setReviewsState(refreshed.reviews ?? []);
     } catch (e) {
       setError((e as Error).message);
     } finally {
@@ -44,14 +54,21 @@ export default function ReviewsPage() {
     const file = e.target.files?.[0];
     if (!file) return;
     const reader = new FileReader();
-    reader.onload = () => {
+    reader.onload = async () => {
       const parsed = parseReviewsCsv(String(reader.result));
-      setReviews(parsed, {
+      const res = await fetch("/api/reviews", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ reviews: parsed }),
+      });
+      const data = await res.json();
+      setMeta({
         method: "csv-upload",
         appStoreCount: parsed.filter((r) => r.source === "App Store").length,
         playStoreCount: parsed.filter((r) => r.source === "Play Store").length,
         warnings: [],
       });
+      setReviewsState(data.reviews ?? []);
     };
     reader.readAsText(file);
   }

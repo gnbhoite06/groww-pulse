@@ -1,11 +1,11 @@
 "use client";
 
+// Reviews and the generated pulse now live in Postgres (see lib/db.ts, /api/reviews,
+// /api/classify) so they persist across browsers/devices. This hook only keeps small
+// UI-only metadata (last-sourced timestamp, warnings) local to the browser.
 import { useCallback, useEffect, useState } from "react";
-import type { Review, WeeklyPulse } from "./types";
 
-const REVIEWS_KEY = "groww-pulse-reviews";
 const META_KEY = "groww-pulse-meta";
-const PULSE_KEY = "groww-pulse-note";
 
 export type SourceMeta = {
   lastSourcedAt: string | null; // ISO
@@ -34,30 +34,19 @@ function read<T>(key: string, fallback: T): T {
 }
 
 export function useReviewsStore() {
-  const [reviews, setReviewsState] = useState<Review[]>([]);
   const [meta, setMetaState] = useState<SourceMeta>(emptyMeta);
-  const [pulse, setPulseState] = useState<WeeklyPulse | null>(null);
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
-    setReviewsState(read(REVIEWS_KEY, []));
     setMetaState(read(META_KEY, emptyMeta));
-    setPulseState(read(PULSE_KEY, null));
     setHydrated(true);
   }, []);
 
-  const setReviews = useCallback((reviews: Review[], meta: Partial<SourceMeta>) => {
+  const setMeta = useCallback((meta: Partial<SourceMeta>) => {
     const nextMeta: SourceMeta = { ...emptyMeta, ...meta, lastSourcedAt: new Date().toISOString() };
-    setReviewsState(reviews);
     setMetaState(nextMeta);
-    localStorage.setItem(REVIEWS_KEY, JSON.stringify(reviews));
     localStorage.setItem(META_KEY, JSON.stringify(nextMeta));
   }, []);
 
-  const setPulse = useCallback((pulse: WeeklyPulse) => {
-    setPulseState(pulse);
-    localStorage.setItem(PULSE_KEY, JSON.stringify(pulse));
-  }, []);
-
-  return { reviews, meta, pulse, setReviews, setPulse, hydrated };
+  return { meta, setMeta, hydrated };
 }

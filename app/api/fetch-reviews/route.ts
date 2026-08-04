@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { fetchAppStoreReviews, fetchPlayStoreReviews } from "@/lib/fetchReviews";
+import { ensureSchema, getSql } from "@/lib/db";
+import { dedupeKey } from "@/lib/reviewsRepo";
 import type { Review } from "@/lib/types";
 
 export const maxDuration = 60;
@@ -40,6 +42,30 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  const reviews = [...appStore, ...playStore];
-  return NextResponse.json({ reviews, warnings, counts: { appStore: appStore.length, playStore: playStore.length } });
+  const fetched = [...appStore, ...playStore];
+
+  await ensureSchema();
+  const sql = getSql();
+  let inserted = 0;
+  for (const r of fetched) {
+    const key = dedupeKey(r);
+    const result = await sql`
+      INSERT INTO reviews (source, rating, title, text, review_date, dedupe_key)
+      VALUES (${r.source}, ${r.rating}, ${r.title}, ${r.text}, ${r.date}, ${key})
+      ON CONFLICT (dedupe_key) DO NOTHING
+      RETURNING id
+    `;
+    if (result.length > 0) inserted += 1;
+  }
+
+  const totalRows = await sql`SELECT COUNT(*)::int AS count FROM reviews`;
+  const total = (totalRows[0] as { count: number }).count;
+
+  return NextResponse.json({
+    fetchedCount: fetched.length,
+    newCount: inserted,
+    totalStored: total,
+    warnings,
+    counts: { appStore: appStore.length, playStore: playStore.length },
+  });
 }

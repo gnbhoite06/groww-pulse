@@ -1,13 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useReviewsStore } from "@/lib/useReviewsStore";
+import type { Review, WeeklyPulse } from "@/lib/types";
 
 export default function PulsePage() {
-  const { reviews, pulse, setPulse, hydrated } = useReviewsStore();
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [pulse, setPulse] = useState<WeeklyPulse | null>(null);
+  const [hydrated, setHydrated] = useState(false);
   const [loading, setLoading] = useState(false);
   const [editedActions, setEditedActions] = useState<string[] | null>(null);
+
+  useEffect(() => {
+    Promise.all([
+      fetch("/api/reviews").then((res) => res.json()),
+      fetch("/api/pulse").then((res) => res.json()),
+    ])
+      .then(([reviewsData, pulseData]) => {
+        setReviews(reviewsData.reviews ?? []);
+        if (pulseData.pulse) {
+          setPulse(pulseData.pulse);
+          setEditedActions(pulseData.pulse.actionIdeas);
+        }
+      })
+      .finally(() => setHydrated(true));
+  }, []);
 
   async function handleGenerate() {
     setLoading(true);
@@ -43,7 +60,7 @@ export default function PulsePage() {
         </button>
       </div>
 
-      {reviews.length === 0 && (
+      {hydrated && reviews.length === 0 && (
         <p className="text-sm text-sub">
           No reviews imported yet. <Link href="/reviews" className="text-brand font-medium">Go import some →</Link>
         </p>

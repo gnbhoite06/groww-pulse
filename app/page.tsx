@@ -1,13 +1,24 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useReviewsStore } from "@/lib/useReviewsStore";
 import { groupByTheme } from "@/lib/classify";
+import type { Review } from "@/lib/types";
 import { StatusCard } from "./status-card";
 
 export default function DashboardPage() {
-  const { reviews, meta, hydrated } = useReviewsStore();
+  const { meta, hydrated: metaHydrated } = useReviewsStore();
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/reviews")
+      .then((res) => res.json())
+      .then((data) => setReviews(data.reviews ?? []))
+      .finally(() => setHydrated(true));
+  }, []);
+
   const groups = useMemo(() => groupByTheme(reviews), [reviews]);
   const avgRating = reviews.length
     ? (reviews.reduce((s, r) => s + r.rating, 0) / reviews.length).toFixed(1)
@@ -36,7 +47,7 @@ export default function DashboardPage() {
         <p className="text-sm text-sub mt-1">Theme breakdown across all imported reviews.</p>
       </div>
 
-      {hydrated && <StatusCard meta={meta} totalReviews={reviews.length} />}
+      {hydrated && metaHydrated && <StatusCard meta={meta} totalReviews={reviews.length} />}
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <KpiCard label="Total reviews" value={reviews.length} />
