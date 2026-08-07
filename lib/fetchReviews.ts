@@ -10,6 +10,7 @@ type AppleEntry = {
 export async function fetchAppStoreReviews(
   appId: string,
   weeks: number,
+  product: string,
   countries: string[] = ["in", "us"]
 ): Promise<Review[]> {
   const since = new Date();
@@ -37,6 +38,7 @@ export async function fetchAppStoreReviews(
           title: (e.title?.label ?? "").trim(),
           text: (e.content?.label ?? "").trim(),
           date: date.toISOString().slice(0, 10),
+          product,
         });
       }
     }
@@ -47,6 +49,7 @@ export async function fetchAppStoreReviews(
 export async function fetchPlayStoreReviews(
   packageName: string,
   weeks: number,
+  product: string,
   count = 200
 ): Promise<Review[]> {
   const since = new Date();
@@ -79,5 +82,6 @@ export async function fetchPlayStoreReviews(
       title: "",
       text: (r.text ?? "").trim(),
       date: new Date(r.date!).toISOString().slice(0, 10),
+      product,
     }));
 }

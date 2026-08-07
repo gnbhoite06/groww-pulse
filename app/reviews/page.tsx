@@ -15,6 +15,8 @@ export default function ReviewsPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [fetchWarnings, setFetchWarnings] = useState<string[]>([]);
+  const [competitorLoading, setCompetitorLoading] = useState(false);
+  const [competitorResult, setCompetitorResult] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/reviews")
@@ -47,6 +49,28 @@ export default function ReviewsPage() {
       setError((e as Error).message);
     } finally {
       setLoading(false);
+    }
+  }
+
+  async function handleFetchCompetitors() {
+    setCompetitorLoading(true);
+    setCompetitorResult(null);
+    try {
+      const res = await fetch("/api/fetch-competitors", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ weeks }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? "Fetch failed");
+      const summary = (data.results as { product: string; inserted: number }[])
+        .map((r) => `${r.product}: +${r.inserted}`)
+        .join(" · ");
+      setCompetitorResult(summary || "No new reviews.");
+    } catch (e) {
+      setCompetitorResult(`Error: ${(e as Error).message}`);
+    } finally {
+      setCompetitorLoading(false);
     }
   }
 
@@ -128,6 +152,22 @@ export default function ReviewsPage() {
         {fetchWarnings.map((w, i) => (
           <p key={i} className="text-xs text-amber">⚠ {w}</p>
         ))}
+      </div>
+
+      <div className="rounded-xl border border-card-line bg-card p-5 flex flex-col gap-3">
+        <h2 className="text-sm font-bold text-brand uppercase tracking-wide">Competitor benchmark</h2>
+        <p className="text-xs text-sub">
+          Pulls the same {weeks}-week window for Zerodha Kite, Upstox, and Angel One, tagged by product, to power the
+          dashboard&apos;s week-over-week and comparison views.
+        </p>
+        <button
+          onClick={handleFetchCompetitors}
+          disabled={competitorLoading}
+          className="self-start rounded-lg border border-brand-strong text-brand px-4 py-2 text-sm font-semibold hover:bg-brand-soft transition-colors disabled:opacity-50 cursor-pointer"
+        >
+          {competitorLoading ? "Fetching competitors…" : "Fetch competitor reviews"}
+        </button>
+        {competitorResult && <p className="text-xs text-sub">{competitorResult}</p>}
       </div>
 
       <div className="rounded-xl border border-card-line bg-card p-5 flex flex-col gap-3">

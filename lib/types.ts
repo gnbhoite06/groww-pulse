@@ -4,6 +4,23 @@ export type Review = {
   title: string;
   text: string;
   date: string; // ISO yyyy-mm-dd
+  product: string; // e.g. "Groww", "Zerodha Kite"
+};
+
+export type WeekPoint = {
+  week: string; // ISO week label, e.g. "2026-W30"
+  weekStart: string; // ISO date, Monday of that week
+  product: string;
+  count: number;
+  avgRating: number;
+};
+
+export type ProductSummary = {
+  product: string;
+  totalReviews: number;
+  avgRating: number;
+  topTheme: string;
+  topThemeCount: number;
 };
 
 export type ThemeGroup = {

@@ -25,9 +25,12 @@ export async function ensureSchema() {
       text TEXT NOT NULL DEFAULT '',
       review_date DATE NOT NULL,
       dedupe_key TEXT NOT NULL UNIQUE,
+      product TEXT NOT NULL DEFAULT 'Groww',
       created_at TIMESTAMPTZ NOT NULL DEFAULT now()
     )
   `;
+  await sql`ALTER TABLE reviews ADD COLUMN IF NOT EXISTS product TEXT NOT NULL DEFAULT 'Groww'`;
+  await sql`CREATE INDEX IF NOT EXISTS reviews_product_date_idx ON reviews (product, review_date)`;
   await sql`
     CREATE TABLE IF NOT EXISTS pulses (
       id BIGSERIAL PRIMARY KEY,

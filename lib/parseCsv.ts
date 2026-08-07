@@ -11,6 +11,7 @@ export function parseReviewsCsv(text: string): Review[] {
   const iTitle = idx("title");
   const iText = idx("text");
   const iDate = idx("date");
+  const iProduct = idx("product");
 
   return rows.slice(1).filter(r => r.length > 1).map((r) => ({
     source: (r[iSource]?.trim() as Review["source"]) ?? "Play Store",
@@ -18,6 +19,7 @@ export function parseReviewsCsv(text: string): Review[] {
     title: r[iTitle]?.trim() ?? "",
     text: r[iText]?.trim() ?? "",
     date: r[iDate]?.trim() ?? "",
+    product: (iProduct >= 0 ? r[iProduct]?.trim() : "") || "Groww",
   }));
 }
 
