@@ -18,7 +18,9 @@ export type WeekPoint = {
 export type ProductSummary = {
   product: string;
   totalReviews: number;
-  avgRating: number;
+  avgRating: number; // avg of the recent-window sample (recency-weighted, skews toward current complaints)
+  officialRating: number | null; // live all-time Play Store rating, for context against the sample
+  officialRatingsCount: number | null;
   topTheme: string;
   topThemeCount: number;
 };

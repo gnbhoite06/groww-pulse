@@ -184,13 +184,19 @@ export default function DashboardPage() {
 
       {summaries.length > 0 && (
         <div className="rounded-xl border border-card-line bg-card p-5">
-          <h2 className="text-sm font-bold text-brand uppercase tracking-wide mb-4">Competitor comparison</h2>
+          <h2 className="text-sm font-bold text-brand uppercase tracking-wide mb-1">Competitor comparison</h2>
+          <p className="text-xs text-sub mb-4">
+            &quot;Recent sample&quot; is the avg of reviews in this window only — it skews toward current complaints
+            by design, since that&apos;s what a weekly pulse is for. &quot;Store rating&quot; is each app&apos;s live
+            all-time Play Store score, shown so the recent number isn&apos;t mistaken for overall app health.
+          </p>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead className="text-xs text-sub uppercase tracking-wide">
                 <tr>
                   <th className="text-left px-3 py-2 font-semibold">Product</th>
-                  <th className="text-left px-3 py-2 font-semibold tabular">Avg rating</th>
+                  <th className="text-left px-3 py-2 font-semibold tabular">Recent sample</th>
+                  <th className="text-left px-3 py-2 font-semibold tabular">Store rating</th>
                   <th className="text-left px-3 py-2 font-semibold tabular">Reviews</th>
                   <th className="text-left px-3 py-2 font-semibold">Top complaint theme</th>
                 </tr>
@@ -206,6 +212,18 @@ export default function DashboardPage() {
                       {s.product}
                     </td>
                     <td className="px-3 py-2 tabular">{s.avgRating.toFixed(2)}★</td>
+                    <td className="px-3 py-2 tabular text-sub">
+                      {s.officialRating !== null ? (
+                        <>
+                          {s.officialRating.toFixed(2)}★
+                          {s.officialRatingsCount ? (
+                            <span className="text-[10px]"> ({(s.officialRatingsCount / 1_000_000).toFixed(1)}M)</span>
+                          ) : null}
+                        </>
+                      ) : (
+                        "—"
+                      )}
+                    </td>
                     <td className="px-3 py-2 tabular">{s.totalReviews}</td>
                     <td className="px-3 py-2 text-sub">
                       {s.topTheme} {s.topThemeCount ? `(${s.topThemeCount})` : ""}
