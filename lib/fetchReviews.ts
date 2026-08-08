@@ -50,7 +50,8 @@ export async function fetchPlayStoreReviews(
   packageName: string,
   weeks: number,
   product: string,
-  count = 200
+  pageSize = 150,
+  maxPages = 120
 ): Promise<Review[]> {
   const since = new Date();
   since.setDate(since.getDate() - weeks * 7);
@@ -63,18 +64,36 @@ export async function fetchPlayStoreReviews(
   // itself rather than the value object, even though `gplay.sort.NEWEST`
   // resolves fine at runtime (verified: { NEWEST: 2, RATING: 3, HELPFULNESS: 1 }).
   const NEWEST = (gplay.sort as unknown as { NEWEST: number }).NEWEST;
-  const result = await gplay.reviews({
-    appId: packageName,
-    lang: "en",
-    country: "in",
-    sort: NEWEST as unknown as typeof gplay.sort,
-    num: count,
-  });
 
   type GPlayReview = { date?: string; score?: number; text?: string };
-  const list: GPlayReview[] = result.data ?? result;
+  const collected: GPlayReview[] = [];
+  let nextPaginationToken: unknown = undefined;
 
-  return list
+  // High-volume apps burn through a single page of "newest" reviews within
+  // days, so pull more pages until we cross the requested window (or hit
+  // maxPages, to keep this from running unbounded against very active apps).
+  for (let page = 0; page < maxPages; page++) {
+    const result = await gplay.reviews({
+      appId: packageName,
+      lang: "en",
+      country: "in",
+      sort: NEWEST as unknown as typeof gplay.sort,
+      num: pageSize,
+      paginate: true,
+      nextPaginationToken: nextPaginationToken as string | undefined,
+    });
+    const batch: GPlayReview[] = result.data ?? [];
+    if (batch.length === 0) break;
+    collected.push(...batch);
+
+    const oldest = batch[batch.length - 1]?.date;
+    if (oldest && new Date(oldest) < since) break;
+
+    nextPaginationToken = result.nextPaginationToken;
+    if (!nextPaginationToken) break;
+  }
+
+  return collected
     .filter((r) => r.date && new Date(r.date) >= since)
     .map((r) => ({
       source: "Play Store" as const,
