@@ -9,7 +9,10 @@ async function fetchOfficialRating(playPackage: string): Promise<{ rating: numbe
   try {
     const gplayModule = await import("google-play-scraper");
     const gplay = gplayModule.default;
-    const app = await gplay.app({ appId: playPackage });
+    // Pin country: without it, google-play-scraper's default locale can
+    // return a materially different score/rating count than what Indian
+    // users see on the Play Store for these India-only broker apps.
+    const app = await gplay.app({ appId: playPackage, country: "in" });
     return { rating: app.score ?? null, count: app.ratings ?? null };
   } catch {
     return { rating: null, count: null };
